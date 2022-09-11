@@ -22,7 +22,6 @@ import { STORE_NAME } from '../../constants';
 
 const LinkItems = [
   { name: 'Productos', icon: FiBriefcase, path: '/products' },
-  { name: 'Login por mientras', icon: FiSettings, path: '/login' },
   { name: 'Inventario', icon: FiSettings, path: '/inventory' },
 ];
 
@@ -34,30 +33,30 @@ export default function MainContainer({
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-    {/* className='background' */}
+      {/* className='background' */}
       <Box className='background' minH="100vh" >
 
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
-      />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full">
-        <DrawerContent>
-          <SidebarContent onClose={onClose} />
-        </DrawerContent>
-      </Drawer>
-      {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+        <SidebarContent
+          onClose={() => onClose}
+          display={{ base: 'none', md: 'block' }}
+        />
+        <Drawer
+          autoFocus={false}
+          isOpen={isOpen}
+          placement="left"
+          onClose={onClose}
+          returnFocusOnClose={false}
+          onOverlayClick={onClose}
+          size="full">
+          <DrawerContent>
+            <SidebarContent onClose={onClose} />
+          </DrawerContent>
+        </Drawer>
+        {/* mobilenav */}
+        <MobileNav onOpen={onOpen} />
+        <Box ml={{ base: 0, md: 60 }} p="4">
+          {children}
+        </Box>
 
 
 
@@ -83,7 +82,16 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+          {STORE_NAME}
+        </Text> */}
+        <Text
+          Text fontSize="2xl"
+          fontFamily="monospace"
+          fontWeight="bold"
+          as={'span'}
+          bgGradient="linear(to-r, red.400,pink.400)"
+          bgClip="text">
           {STORE_NAME}
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />

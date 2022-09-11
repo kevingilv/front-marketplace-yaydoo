@@ -17,7 +17,7 @@ const Main = () => (
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/create-user' component={CreateUser} />
                     <Route exact path='/inventory' component={MainInventory} />
-                    <Redirect to='/products' />
+                    <Redirect to='/inventory' />
                 </Switch>
             </MainContainer>
         </BrowserRouter>

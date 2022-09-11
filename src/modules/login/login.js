@@ -12,19 +12,42 @@ import {
     Avatar,
     FormControl,
     InputRightElement,
-    Text
+    Text,
+    useToast
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { BaseForm } from "../../components/BaseForm";
 import { Link as RouterLink } from "react-router-dom";
+import { loginUserService } from "../../services/UserService";
+import { TOAST_POSITIONS, TOAST_STATUS } from "../../constants";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 const Login = () => {
+    const toast = useToast()
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleShowClick = () => setShowPassword(!showPassword);
+
+
+    async function login() {
+        const payload = {
+            email,
+            password,
+        }
+        const result = await loginUserService(payload);
+        toast({
+            title: result.success ? 'Bienvenido.' : 'Revisa tus datos.',
+            description: result.message,
+            status: result.success ? TOAST_STATUS.success : TOAST_STATUS.warning,
+            duration: 5000,
+            isClosable: true,
+            position: TOAST_POSITIONS.topRight,
+        });
+    }
 
     return (
         <Flex
@@ -56,7 +79,11 @@ const Login = () => {
                                 pointerEvents="none"
                                 children={<CFaUserAlt color="gray.300" />}
                             />
-                            <Input type="email" placeholder="Correo electrónico" />
+                            <Input
+                                value={email}
+                                onChange={(value) => setEmail(value.target.value)}
+                                type="email"
+                                placeholder="Correo electrónico" />
                         </InputGroup>
                     </FormControl>
                     <FormControl>
@@ -67,6 +94,8 @@ const Login = () => {
                                 children={<CFaLock color="gray.300" />}
                             />
                             <Input
+                                value={password}
+                                onChange={(value) => setPassword(value.target.value)}
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Contraseña"
                             />
@@ -79,6 +108,7 @@ const Login = () => {
 
                     </FormControl>
                     <Button
+                        onClick={() => login()}
                         fontFamily={'heading'}
                         mt={8}
                         w={'full'}
@@ -89,7 +119,7 @@ const Login = () => {
                             boxShadow: 'xl',
                         }}
                     >
-                        Login
+                        Iniciar Sesión
                     </Button>
                 </BaseForm>
             </Stack>

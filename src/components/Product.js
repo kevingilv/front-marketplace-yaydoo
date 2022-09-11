@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 const IMAGE =
-    'https://img.freepik.com/foto-gratis/resumen-exhibicion-producto-pedestal-podio-blanco-sobre-fondo-blanco-representacion-3d_56104-1486.jpg?w=900&t=st=1662859444~exp=1662860044~hmac=50d8282ed881466977981ed2b88887398b7d654b9d97b718d79ac7e3e38e1739';
+    'https://img.freepik.com/fotos-premium/podio-minimalista-3d-exhibicion-productos_457716-730.jpg?w=740';
 
 export default class Product extends Component {
     render() {
