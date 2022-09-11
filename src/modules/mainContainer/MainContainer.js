@@ -10,10 +10,8 @@ import {
   Text,
   useDisclosure,
   BoxProps,
-  Container
 } from '@chakra-ui/react';
 import {
-  FiHome,
   FiBriefcase,
   FiSettings,
 } from 'react-icons/fi';
@@ -23,7 +21,6 @@ import { STORE_NAME } from '../../constants';
 
 
 const LinkItems = [
-  // { name: 'Home', icon: FiHome, path: '/main' },
   { name: 'Productos', icon: FiBriefcase, path: '/products' },
   { name: 'Login por mientras', icon: FiSettings, path: '/login' },
   { name: 'Inventario', icon: FiSettings, path: '/inventory' },
@@ -37,32 +34,32 @@ export default function MainContainer({
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box minH="100vh" className='background'>
-        <SidebarContent
-          onClose={() => onClose}
-          display={{ base: 'none', md: 'block' }}
-        />
-        <Drawer
-          autoFocus={false}
-          isOpen={isOpen}
-          placement="left"
-          onClose={onClose}
-          returnFocusOnClose={false}
-          onOverlayClick={onClose}
-          size="full">
-          <DrawerContent>
-            <SidebarContent onClose={onClose} />
-          </DrawerContent>
-        </Drawer>
-        {/* mobilenav */}
-        <MobileNav onOpen={onOpen} />
-        <Box ml={{ base: 0, md: 60 }} p="4">
-          {children}
-        </Box>
+    {/* className='background' */}
+      <Box className='background' minH="100vh" >
 
-        {/* <Container maxW='container.sm'>
-         
-        </Container> */}
+      <SidebarContent
+        onClose={() => onClose}
+        display={{ base: 'none', md: 'block' }}
+      />
+      <Drawer
+        autoFocus={false}
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        returnFocusOnClose={false}
+        onOverlayClick={onClose}
+        size="full">
+        <DrawerContent>
+          <SidebarContent onClose={onClose} />
+        </DrawerContent>
+      </Drawer>
+      {/* mobilenav */}
+      <MobileNav onOpen={onOpen} />
+      <Box ml={{ base: 0, md: 60 }} p="4">
+        {children}
+      </Box>
+
+
 
       </Box>
 

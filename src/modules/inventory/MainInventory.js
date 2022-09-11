@@ -4,7 +4,6 @@ import {
     Heading,
     Text,
     Container,
-    Link,
     Button,
     SimpleGrid,
     useBreakpointValue,
@@ -13,7 +12,7 @@ import {
     Image
 } from '@chakra-ui/react';
 import { URL_MAIN_INVENTORY_IMAGE } from '../../constants';
-
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function MainInventory() {
     return (
@@ -62,30 +61,33 @@ export default function MainInventory() {
                                 </Text>
                             </Heading> */}
                             <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                                We’re looking for amazing engineers just like you! Become a part
-                                of our rockstar engineering team and skyrocket your career!
+                                Accede a la mejor marketplace del mercado y deja que miles de personas conozcan tu producto.
+                                Sé parte de esta gran comunidad. <br />
+                                ¡Comienza Ahora!
                             </Text>
                         </Stack>
 
                         <Box spacing={4} as={'form'} mt={20}>
-                            <Button
-                                fontFamily={'heading'}
-                                mt={8}
-                                w={'full'}
-                                bgGradient="linear(to-r, red.400,pink.400)"
-                                color={'white'}
-                                _hover={{
-                                    bgGradient: 'linear(to-r, red.400,pink.400)',
-                                    boxShadow: 'xl',
-                                }}>
-                                Crear Producto
-                            </Button>
+                            <RouterLink to='/create-product'>
+                                <Button
+                                    fontFamily={'heading'}
+                                    mt={8}
+                                    w={'full'}
+                                    bgGradient="linear(to-r, red.400,pink.400)"
+                                    color={'white'}
+                                    _hover={{
+                                        bgGradient: 'linear(to-r, red.400,pink.400)',
+                                        boxShadow: 'xl',
+                                    }}>
+                                    Crear Producto
+                                </Button>
+                            </RouterLink>
                             <Stack spacing={4}>
-                               
+
                                 <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                                    <Link color='teal.500'>
+                                    <RouterLink to='/login' color='teal.500'>
                                         O Inicia sesión para ver tu inventario
-                                    </Link>
+                                    </RouterLink>
                                 </Text>
                             </Stack>
 
@@ -95,7 +97,7 @@ export default function MainInventory() {
                 </Container>
 
             </Box>
-        </div>
+        </div >
     );
 }
 

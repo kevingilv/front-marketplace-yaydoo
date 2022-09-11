@@ -17,6 +17,7 @@ import {
     MenuDivider
 } from '@chakra-ui/react';
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
+import { Link as RouterLink } from 'react-router-dom';
 import { STORE_NAME } from '../constants';
 
 interface NavItemProps extends FlexProps {
@@ -38,7 +39,7 @@ export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
                 role="group"
                 cursor="pointer"
                 _hover={{
-                    bg: 'cyan.400',
+                    bg: '#e5638d',
                     color: 'white',
                 }}
                 {...rest}>
@@ -124,7 +125,8 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         <MenuList
                             bg={useColorModeValue('white', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
-                            <MenuItem>Profile</MenuItem>
+                            <RouterLink to='/login'><MenuItem>Iniciar Sesión</MenuItem></RouterLink>
+                            {/* <MenuItem>Profile</MenuItem> */}
                             <MenuDivider />
                             <MenuItem>Sign out</MenuItem>
                         </MenuList>
