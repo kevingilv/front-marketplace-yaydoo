@@ -30,7 +30,11 @@ export default function MainContainer({
 }: {
   children: ReactNode;
 }) {
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [isLogged, setIsLogged] = useState(false);
+
+
   return (
     <>
       {/* className='background' */}
@@ -57,9 +61,6 @@ export default function MainContainer({
         <Box ml={{ base: 0, md: 60 }} p="4">
           {children}
         </Box>
-
-
-
       </Box>
 
     </>

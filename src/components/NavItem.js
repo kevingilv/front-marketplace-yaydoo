@@ -3,7 +3,6 @@ import {
     Link,
     Icon,
     Flex,
-    FlexProps,
     useColorModeValue,
     Text,
     HStack,
@@ -19,16 +18,22 @@ import {
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
 import { Link as RouterLink } from 'react-router-dom';
 import { STORE_NAME } from '../constants';
+import { singOutUserService } from '../services/UserService';
 
-interface NavItemProps extends FlexProps {
-    icon: IconType;
-    children: ReactText;
-}
-interface MobileProps extends FlexProps {
-    onOpen: () => void;
+// interface NavItemProps extends FlexProps {
+//     icon: IconType;
+//     children: ReactText;
+// }
+// interface MobileProps extends FlexProps {
+//     onOpen: () => void;
+// }
+
+async function singOut() {
+    await singOutUserService();
 }
 
-export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+export const NavItem = ({ icon, children, ...rest }) => {
+    //export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
     return (
         <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex
@@ -59,7 +64,7 @@ export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
     );
 };
 
-export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+export const MobileNav = ({ onOpen, ...rest }) => {
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -126,9 +131,8 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                             bg={useColorModeValue('white', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
                             <RouterLink to='/login'><MenuItem>Iniciar Sesión</MenuItem></RouterLink>
-                            {/* <MenuItem>Profile</MenuItem> */}
                             <MenuDivider />
-                            <MenuItem>Sign out</MenuItem>
+                            <MenuItem onClick={() => singOut()} >Cerrar Sesión</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>
