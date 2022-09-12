@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Flex, Heading, Text, Button } from "@chakra-ui/react";
 import Product from '../../components/Product'
 import { getAllProductService } from '../../services/ProductService';
-import { Spinner } from '@chakra-ui/react'
+import { Spinner, Input } from '@chakra-ui/react'
 
 export default class Products extends Component {
 
@@ -22,7 +22,11 @@ export default class Products extends Component {
   }
 
   handleFilter = event => {
-
+    let updateProducts = this.state.products;
+    updateProducts = updateProducts.filter(prod => {
+      return prod.name.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+    })
+    this.setState({ filteredProducts: updateProducts });
   };
 
   constructor(props) {
@@ -52,7 +56,7 @@ export default class Products extends Component {
         </Flex>
         <Flex
           flexWrap="wrap"
-          flexDirection="row"
+          flexDirection="column"
           justifyContent="center"
           alignItems="center">
           <Heading>
@@ -63,13 +67,22 @@ export default class Products extends Component {
               Listado de Productos
             </Text>
           </Heading>
+          {this.state.showSpinner ? <></> :
+            <Input
+              onChange={this.handleFilter}
+              marginTop={'20px'}
+              bg={'white'}
+              maxWidth={'30%'}
+              placeholder='Buscar: nombre producto'
+              size='md' />
+          }
         </Flex>
         <Flex
           gap={3}
           padding="10px"
           flexWrap="wrap"
           flexDirection="row"
-          height="50vh"
+          height="40vh"
           justifyContent="center"
           alignItems="center"
           maxHeight="100vh"
