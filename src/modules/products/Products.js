@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { Flex, Heading, Text, Button } from "@chakra-ui/react";
 import Product from '../../components/Product'
 import { getAllProductService } from '../../services/ProductService';
+import { Spinner } from '@chakra-ui/react'
+
 export default class Products extends Component {
 
   async componentDidMount() {
@@ -14,14 +16,19 @@ export default class Products extends Component {
     super(props);
     this.state = {
       products: [],
+      showSpinner: false,
     }
   }
 
   render() {
 
     async function getProducts(x) {
+      x.setState({ showSpinner: true });
       const resultProds = await getAllProductService();
-      x.setState({ products: resultProds.data });
+      x.setState({
+        products: resultProds.data,
+        showSpinner: false
+      });
     }
 
     return (
@@ -62,16 +69,15 @@ export default class Products extends Component {
           alignItems="center"
           maxHeight="100vh"
         >
-
-          {this.state.products.map(x =>
-            <Product
-              name={x.name}
-              sku={x.sku}
-              price={x.price}
-            />
-          )}
-
-
+          {this.state.showSpinner ?
+            <Spinner size='xl' /> : this.state.products.map(x =>
+              <Product
+                name={x.name}
+                sku={x.sku}
+                price={x.price}
+              />
+            )
+          }
 
         </Flex>
 
