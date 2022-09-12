@@ -12,6 +12,11 @@ export async function getAllProductService(payload) {
     return response.data;
 }
 
+export async function getInventoryService(payload) {
+    const response = await axios.post('product/get-inventory', payload);
+    return response.data;
+}
+
 
 
 
