@@ -13,9 +13,6 @@ export async function createUserService(payload) {
 
 export async function loginUserService(payload) {
     const response = await axios.post('user/login', payload);
-    if (response.status === 200 && response.data.success) {
-        //loadRegisteredUser(response);
-    }
     return response.data;
 }
 
@@ -23,7 +20,6 @@ export async function singOutUserService() {
     sessionStorage.removeItem(IS_LOGGED);
     sessionStorage.removeItem(ID_USER);
     sessionStorage.removeItem(USER_EMAIL);
-    window.location.reload();
 }
 
 function loadRegisteredUser(response) {

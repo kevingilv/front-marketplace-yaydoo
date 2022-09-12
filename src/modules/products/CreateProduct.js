@@ -22,8 +22,8 @@ export default function CreateProduct() {
     const { user } = useContext(UserContext);
     const [name, setName] = useState('');
     const [sku, setSku] = useState('');
-    const [price, setPrice] = useState(0);
-    const [quantity, setQuantity] = useState(0);
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
     const [btnCreateIsDisabled, setBtnCreateIsDisabled] = useState(false);
     const toast = useToast()
 

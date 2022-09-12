@@ -7,6 +7,11 @@ export async function createProductService(payload) {
     return response.data;
 }
 
+export async function getAllProductService(payload) {
+    const response = await axios.get('product/get-all', payload);
+    return response.data;
+}
+
 
 
 
