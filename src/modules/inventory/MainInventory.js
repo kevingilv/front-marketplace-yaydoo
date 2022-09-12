@@ -6,9 +6,6 @@ import {
     Container,
     Button,
     SimpleGrid,
-    // useBreakpointValue,
-    // IconProps,
-    // Icon,
     Image
 } from '@chakra-ui/react';
 import { URL_MAIN_INVENTORY_IMAGE } from '../../constants';
