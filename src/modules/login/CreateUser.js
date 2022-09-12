@@ -30,6 +30,7 @@ const CreateUser = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
     const toast = useToast()
     const { user, setUser } = useContext(UserContext);
 
@@ -42,6 +43,7 @@ const CreateUser = () => {
             password,
             confirmPassword
         }
+        setButtonIsDisabled(true);
         const result = await createUserService(payload);
         if (result.success) {
             setUser(result.data.email)
@@ -54,6 +56,7 @@ const CreateUser = () => {
             isClosable: true,
             position: TOAST_POSITIONS.topRight,
         });
+        setButtonIsDisabled(false);
     }
 
     return (
@@ -137,6 +140,7 @@ const CreateUser = () => {
 
                             </FormControl>
                             <Button
+                                disabled={buttonIsDisabled}
                                 onClick={() => createUser()}
                                 fontFamily={'heading'}
                                 mt={8}

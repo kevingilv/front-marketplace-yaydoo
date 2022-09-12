@@ -20,8 +20,6 @@ import { BaseForm } from "../../components/BaseForm";
 import { Link as RouterLink, Redirect } from "react-router-dom";
 import { loginUserService } from "../../services/UserService";
 import { TOAST_POSITIONS, TOAST_STATUS } from "../../constants";
-// import { IS_LOGGED } from "../../constants";
-// import ManageInventory from "../inventory/ManageInventory";
 import { UserContext } from "../../context/UserContext";
 
 const CFaUserAlt = chakra(FaUserAlt);
@@ -33,6 +31,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { user, setUser } = useContext(UserContext)
+    const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
 
     const handleShowClick = () => setShowPassword(!showPassword);
 
@@ -42,6 +41,7 @@ const Login = () => {
             email,
             password,
         }
+        setButtonIsDisabled(true);
         const result = await loginUserService(payload);
         if (result.success) {
             setUser(result.data.email)
@@ -54,12 +54,13 @@ const Login = () => {
             isClosable: true,
             position: TOAST_POSITIONS.topRight,
         });
+        setButtonIsDisabled(false);
     }
 
     return (
         <>
             {/* {console.log('EL LOYIN', sessionStorage.getItem(IS_LOGGED))} */}
-            {user !== null  ? <Redirect to='/inventory' /> : <Flex
+            {user !== null ? <Redirect to='/inventory' /> : <Flex
                 flexDirection="column"
                 width="100wh"
                 height="50vh"
@@ -115,6 +116,7 @@ const Login = () => {
 
                         </FormControl>
                         <Button
+                            disabled={buttonIsDisabled}
                             onClick={() => login()}
                             fontFamily={'heading'}
                             mt={8}
