@@ -8,8 +8,12 @@ import { Spinner } from '@chakra-ui/react'
 export default class Products extends Component {
 
   async componentDidMount() {
+    this.setState({ showSpinner: true });
     const resultProds = await getAllProductService();
-    this.setState({ products: resultProds.data })
+    this.setState({
+      products: resultProds.data,
+      showSpinner: false
+    });
   }
 
   constructor(props) {
