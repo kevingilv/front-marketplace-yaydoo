@@ -13,23 +13,17 @@ import {
     MenuList,
     MenuItem,
     Box,
-    MenuDivider
 } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
 import { Link as RouterLink } from 'react-router-dom';
 import { STORE_NAME } from '../constants';
+import { UserContext } from '../context/UserContext';
 import { singOutUserService } from '../services/UserService';
 
-// interface NavItemProps extends FlexProps {
-//     icon: IconType;
-//     children: ReactText;
-// }
-// interface MobileProps extends FlexProps {
-//     onOpen: () => void;
-// }
-
-async function singOut() {
-    await singOutUserService();
+async function singOut(setUser) {
+    setUser(null);
+    singOutUserService();
 }
 
 export const NavItem = ({ icon, children, ...rest }) => {
@@ -65,6 +59,9 @@ export const NavItem = ({ icon, children, ...rest }) => {
 };
 
 export const MobileNav = ({ onOpen, ...rest }) => {
+
+    const { user, setUser } = useContext(UserContext);
+
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -93,12 +90,6 @@ export const MobileNav = ({ onOpen, ...rest }) => {
             </Text>
 
             <HStack spacing={{ base: '0', md: '6' }}>
-                {/* <IconButton
-            size="lg"
-            variant="ghost"
-            aria-label="open menu"
-            icon={<FiBell />}
-          /> */}
                 <Flex alignItems={'center'}>
                     <Menu>
                         <MenuButton
@@ -117,9 +108,9 @@ export const MobileNav = ({ onOpen, ...rest }) => {
                                     alignItems="flex-start"
                                     spacing="1px"
                                     ml="2">
-                                    <Text fontSize="sm">Usuario</Text>
+                                    <Text fontSize="sm">{user !== null ? user : 'Iniciar Sesión'} </Text>
                                     <Text fontSize="xs" color="gray.600">
-                                        Rol
+                                        {user !== null ? 'Cerrar Sesión' : ''}
                                     </Text>
                                 </VStack>
                                 <Box display={{ base: 'none', md: 'flex' }}>
@@ -130,9 +121,9 @@ export const MobileNav = ({ onOpen, ...rest }) => {
                         <MenuList
                             bg={useColorModeValue('white', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
-                            <RouterLink to='/login'><MenuItem>Iniciar Sesión</MenuItem></RouterLink>
-                            <MenuDivider />
-                            <MenuItem onClick={() => singOut()} >Cerrar Sesión</MenuItem>
+                            {user == null ?
+                                <RouterLink to='/login'><MenuItem>Iniciar Sesión</MenuItem></RouterLink> :
+                                <MenuItem onClick={() => singOut(setUser)} >Cerrar Sesión</MenuItem>}
                         </MenuList>
                     </Menu>
                 </Flex>

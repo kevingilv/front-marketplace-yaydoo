@@ -1,5 +1,5 @@
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import {
   Box,
   CloseButton,
@@ -18,12 +18,11 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { NavItem, MobileNav } from '../../components/NavItem';
 import { STORE_NAME } from '../../constants';
+import { UserContext } from '../../context/UserContext';
 
 
-const LinkItems = [
-  { name: 'Productos', icon: FiBriefcase, path: '/products' },
-  { name: 'Inventario', icon: FiSettings, path: '/inventory' },
-];
+
+
 
 export default function MainContainer({
   children,
@@ -72,6 +71,15 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+
+  const { user } = useContext(UserContext);
+
+  const LinkItems = [
+    { name: 'Marketplace', icon: FiBriefcase, path: '/products', show: true },
+    { name: 'Crear Productos', icon: FiSettings, path: '/inventory', show: true },
+    { name: 'Mi Inventario', icon: FiSettings, path: '/manage-inventory', show: (user !== null) ? true : false },
+  ];
+
   return (
     <Box
       transition="3s ease"
@@ -99,14 +107,18 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       </Flex>
       {LinkItems.map((link) => (
         <>
-          <RouterLink to={link.path}>
-            <NavItem key={link.name} icon={link.icon}>
-              {link.name}
-            </NavItem>
-          </RouterLink>
+          {link.show ?
+            <RouterLink to={link.path}>
+              <NavItem key={link.name} icon={link.icon}>
+                {link.name}
+              </NavItem>
+            </RouterLink>
+            : <></>
+          }
         </>
-      ))}
-    </Box>
+      ))
+      }
+    </Box >
 
   );
 };

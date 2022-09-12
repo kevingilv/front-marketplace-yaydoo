@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
     Flex,
     Heading,
@@ -17,11 +17,12 @@ import {
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { BaseForm } from "../../components/BaseForm";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Redirect } from "react-router-dom";
 import { loginUserService } from "../../services/UserService";
 import { TOAST_POSITIONS, TOAST_STATUS } from "../../constants";
-import { IS_LOGGED } from "../../constants";
-import ManageInventory from "../inventory/ManageInventory";
+// import { IS_LOGGED } from "../../constants";
+// import ManageInventory from "../inventory/ManageInventory";
+import { UserContext } from "../../context/UserContext";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -31,7 +32,8 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLogged, setIsLogged] = useState(false);
+    // const [isLogged, setIsLogged] = useState(false);
+    const { user, setUser } = useContext(UserContext)
 
     const handleShowClick = () => setShowPassword(!showPassword);
 
@@ -42,9 +44,12 @@ const Login = () => {
             password,
         }
         const result = await loginUserService(payload);
-        if (sessionStorage.getItem(IS_LOGGED)) {
-            setIsLogged(true);
+        if (result.success) {
+            setUser(result.data.email)
         }
+        // if (sessionStorage.getItem(IS_LOGGED)) {
+        //     setIsLogged(true);
+        // }
         toast({
             title: result.success ? 'Bienvenido.' : 'Revisa tus datos.',
             description: result.message,
@@ -55,10 +60,10 @@ const Login = () => {
         });
     }
 
-    return ( 
+    return (
         <>
             {/* {console.log('EL LOYIN', sessionStorage.getItem(IS_LOGGED))} */}
-            {isLogged || sessionStorage.getItem(IS_LOGGED) ? <ManageInventory /> : <Flex
+            {user !== null  ? <Redirect to='/invenotory' /> : <Flex
                 flexDirection="column"
                 width="100wh"
                 height="50vh"

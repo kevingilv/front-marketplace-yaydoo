@@ -14,7 +14,7 @@ export async function createUserService(payload) {
 export async function loginUserService(payload) {
     const response = await axios.post('user/login', payload);
     if (response.status === 200 && response.data.success) {
-        loadRegisteredUser(response);
+        //loadRegisteredUser(response);
     }
     return response.data;
 }

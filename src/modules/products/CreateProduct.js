@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { useContext } from 'react'
 import {
     Flex,
     Stack,
@@ -10,11 +10,16 @@ import {
 } from '@chakra-ui/react'
 import { FiBox, FiDollarSign, FiFileMinus } from "react-icons/fi";
 import { BaseForm } from '../../components/BaseForm'
+import { UserContext } from '../../context/UserContext';
+import { Redirect } from 'react-router';
 
-export default class CreateProduct extends Component {
-    render() {
-        return (
-            <>
+export default function CreateProduct() {
+
+    const { user } = useContext(UserContext);
+
+    return (
+        <>
+            {user !== null ?
                 <Flex
                     flexDirection="column"
                     width="100wh"
@@ -75,9 +80,10 @@ export default class CreateProduct extends Component {
                         </BaseForm>
                     </Stack>
                 </Flex>
-            </>
+                : <Redirect to='/login' />}
+        </>
 
 
-        )
-    }
+    )
+
 }
