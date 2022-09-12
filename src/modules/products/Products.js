@@ -1,17 +1,14 @@
 
 import React, { Component } from 'react'
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text, Button } from "@chakra-ui/react";
 import Product from '../../components/Product'
 import { getAllProductService } from '../../services/ProductService';
-
 export default class Products extends Component {
-
 
   async componentDidMount() {
     const resultProds = await getAllProductService();
     this.setState({ products: resultProds.data })
   }
-
 
   constructor(props) {
     super(props);
@@ -20,19 +17,12 @@ export default class Products extends Component {
     }
   }
 
-
   render() {
 
-
-
-    // async function getAllProducts() {
-    //   const result = await getAllProductService();
-    //   if (!result.success) {
-    //     alert('Ocurrió algo inesperado')
-    //   } else {
-    //     return result.data;
-    //   }
-    // }
+    async function getProducts(x) {
+      const resultProds = await getAllProductService();
+      x.setState({ products: resultProds.data });
+    }
 
     return (
       <div>
@@ -40,9 +30,19 @@ export default class Products extends Component {
           padding="10px"
           flexWrap="wrap"
           flexDirection="row"
-          justifyContent="center"
-          alignItems="center"
         >
+          <Button
+            onClick={() => getProducts(this)}
+            bg='white' colorScheme='pink' variant='outline'
+            _hover={{ boxShadow: 'xl' }}>
+            Recargar
+          </Button>
+        </Flex>
+        <Flex
+          flexWrap="wrap"
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center">
           <Heading>
             <Text
               bgGradient="linear(to-r, red.400,pink.400)"
