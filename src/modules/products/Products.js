@@ -8,32 +8,33 @@ import { Spinner } from '@chakra-ui/react'
 export default class Products extends Component {
 
   async componentDidMount() {
+    this.getProducts();
+  }
+
+  async getProducts() {
     this.setState({ showSpinner: true });
     const resultProds = await getAllProductService();
     this.setState({
+      filteredProducts: resultProds.data,
       products: resultProds.data,
       showSpinner: false
     });
   }
 
+  handleFilter = event => {
+
+  };
+
   constructor(props) {
     super(props);
     this.state = {
+      filteredProducts: [],
       products: [],
       showSpinner: false,
     }
   }
 
   render() {
-
-    async function getProducts(x) {
-      x.setState({ showSpinner: true });
-      const resultProds = await getAllProductService();
-      x.setState({
-        products: resultProds.data,
-        showSpinner: false
-      });
-    }
 
     return (
       <div>
@@ -43,7 +44,7 @@ export default class Products extends Component {
           flexDirection="row"
         >
           <Button
-            onClick={() => getProducts(this)}
+            onClick={() => this.getProducts()}
             bg='white' colorScheme='pink' variant='outline'
             _hover={{ boxShadow: 'xl' }}>
             Recargar
@@ -74,7 +75,7 @@ export default class Products extends Component {
           maxHeight="100vh"
         >
           {this.state.showSpinner ?
-            <Spinner size='xl' /> : this.state.products.map(x =>
+            <Spinner size='xl' /> : this.state.filteredProducts.map(x =>
               <Product
                 name={x.name}
                 sku={x.sku}
