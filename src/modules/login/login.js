@@ -32,7 +32,6 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [isLogged, setIsLogged] = useState(false);
     const { user, setUser } = useContext(UserContext)
 
     const handleShowClick = () => setShowPassword(!showPassword);
@@ -47,9 +46,6 @@ const Login = () => {
         if (result.success) {
             setUser(result.data.email)
         }
-        // if (sessionStorage.getItem(IS_LOGGED)) {
-        //     setIsLogged(true);
-        // }
         toast({
             title: result.success ? 'Bienvenido.' : 'Revisa tus datos.',
             description: result.message,
@@ -63,7 +59,7 @@ const Login = () => {
     return (
         <>
             {/* {console.log('EL LOYIN', sessionStorage.getItem(IS_LOGGED))} */}
-            {user !== null  ? <Redirect to='/invenotory' /> : <Flex
+            {user !== null  ? <Redirect to='/inventory' /> : <Flex
                 flexDirection="column"
                 width="100wh"
                 height="50vh"

@@ -122,7 +122,10 @@ export const MobileNav = ({ onOpen, ...rest }) => {
                             bg={useColorModeValue('white', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
                             {user == null ?
-                                <RouterLink to='/login'><MenuItem>Iniciar Sesión</MenuItem></RouterLink> :
+                                <>
+                                    <RouterLink to='/login'><MenuItem>Iniciar Sesión</MenuItem></RouterLink>
+                                    <RouterLink to='/create-user'><MenuItem>Crear Usuario</MenuItem></RouterLink>
+                                </> :
                                 <MenuItem onClick={() => singOut(setUser)} >Cerrar Sesión</MenuItem>}
                         </MenuList>
                     </Menu>
